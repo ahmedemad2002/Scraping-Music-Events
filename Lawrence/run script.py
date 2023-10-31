@@ -3,7 +3,7 @@ import subprocess
 import time
 import os
 
-spider_names = ['everout', 'songkick', 'ticketmaster', 'do206', 'evnetbrite', 'bandsintown', 'stubhub', 'viagogo', 'seatgeek']
+spider_names = ['everout', 'songkick', 'ticketmaster', 'do206', 'eventbrite', 'bandsintown', 'stubhub', 'viagogo', 'seatgeek']
 
 for i, name in enumerate(spider_names):
     print(f'Enter {i+1} to scrape {name}.com')
@@ -29,8 +29,10 @@ if end_date is not None:
     command.extend(['-a', f'e_date={end_date}'])
 
 subprocess.run(command)
-
-data = pd.read_json(output_json)
+try:
+    data = pd.read_json(output_json)
+except ValueError:
+    data = pd.DataFrame(columns='event_title;venue_title;address;zip_code;city;state;phone_number;date;time;lowest_price;highest_price;source_url'.split(';'))
 data.to_csv(output_file, index=False, sep=';')
 # Step 4: Delete the JSON file
 os.remove(output_json)

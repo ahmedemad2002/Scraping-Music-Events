@@ -83,7 +83,9 @@ class EveroutSpider(scrapy.Spider):
                 event_time = ':'.join(event_time.split(':')[:-1])
             event_datetime = {"Date": res['results'][i]['date'], "Time": event_time}
             if event_datetime['Date'] <= self.e_date:
-                yield o|event_datetime
+                o['date'] = event_datetime['Date']
+                o['time'] = event_datetime['Time']
+                yield o
         
 
     # Error handling for request failures

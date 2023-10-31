@@ -8,9 +8,9 @@ import json
 class EventbriteSpider(scrapy.Spider):
     name = "eventbrite"
 
-    custom_settings = {
-        "LOG_LEVEL": "INFO"
-    }
+    # custom_settings = {
+    #     "LOG_LEVEL": "INFO"
+    # }
 
     def __init__(self, s_date=None, e_date=None):
         if s_date is None:
@@ -48,12 +48,14 @@ class EventbriteSpider(scrapy.Spider):
         except Exception as e:
             print(f"error {e} in the {response.url}, and this is server_data::: {server_data}")
             price = None
-        
-        if " – " in price:
-            lp, hp = price.split(' – ')
+        if price is not None:
+            if " – " in price:
+                lp, hp = price.split(' – ')
+            else:
+                price= price.replace('Free', '$0')
+                lp = hp = price
         else:
-            price= price.replace('Free', '$0')
-            lp = hp = price
+            lp = hp = None
         
         full_address = response.css('meta[name="twitter:data1"]::attr(value)').get()
         address, city, state_zip_code = full_address.split(', ')[:3]

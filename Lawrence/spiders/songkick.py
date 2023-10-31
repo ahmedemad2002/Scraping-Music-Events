@@ -27,7 +27,10 @@ class SongkickSpider(scrapy.Spider):
         yield scrapy.Request(url=self.API_Request(1, self.s_date, self.e_date), callback=self.N_of_pages)
         
     def N_of_pages(self, response):
-        n_pages = int(response.css('div.pagination a::text').getall()[-2])
+        try:
+            n_pages = int(response.css('div.pagination a::text').getall()[-2])
+        except:
+            n_pages=1
         for i in range(1, n_pages+1):
             yield scrapy.Request(url=self.API_Request(i, self.s_date, self.e_date), callback=self.events_urls, dont_filter=True)
     

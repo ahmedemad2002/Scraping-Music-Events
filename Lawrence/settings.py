@@ -132,7 +132,7 @@ RANDOMIZE_DOWNLOAD_DELAY = True  # Randomize the delay slightly to make the requ
 # Enable Auto-Throttling
 AUTOTHROTTLE_ENABLED = True
 AUTOTHROTTLE_START_DELAY = 5
-AUTOTHROTTLE_MAX_DELAY = 60
+AUTOTHROTTLE_MAX_DELAY = 65
 AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 AUTOTHROTTLE_DEBUG = False  # This can be set to True for debugging purposes
 
