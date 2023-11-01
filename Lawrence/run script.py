@@ -36,5 +36,4 @@ except ValueError:
 data.to_csv(output_file, index=False, sep=';')
 # Step 4: Delete the JSON file
 os.remove(output_json)
-
 input('press Enter to exit..')
