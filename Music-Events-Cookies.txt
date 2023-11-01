@@ -1,0 +1,23 @@
+Websites using Cookies:
+
+seatgeek:
+	uses 1 cookies value to scrape all the data from the API.
+	Note: The value of cookies expires by time or after number of requests,
+		so, it's recommended to paste new cookies before running this spider.
+	URL: https://seatgeek.com/api/events?page=1&listing_count.gte=1&lat=47.61&lon=-122.33&range=54mi&sort=datetime_local.asc&taxonomies.id=2000000&client_id=MTY2MnwxMzgzMzIwMTU4&per_page=5
+do206:
+	uses 1 cookies value for all different requests on the website.
+	URL: https://do206.com/events/today
+bandsintown:
+	uses 2 cookies:
+		1. Cookies for the the API request which gets the events URLs.
+		2. Event_cookies which opens the event page to get the full data of the event.
+	URLs:
+		API URL: https://www.bandsintown.com/choose-dates/fetch-next/upcomingEvents?came_from=257&utm_medium=web&utm_source=home&utm_campaign=top_event&sort_by_filter=Number+of+RSVPs&concerts=true&date=2023-11-01T00%3A00%3A00%2C2024-11-10T23%3A00%3A00&page=1&longitude=-122.33207&latitude=47.60621
+		Event URL eg.: https://www.bandsintown.com/e/1026835132-metallica-at-lumen-field-muckleshoot-plaza?came_from=257&utm_medium=web&utm_source=home&utm_campaign=ticket_rsvp
+		you can visit any event page to get event_cookies.
+
+How to get cookies from URL:
+	- Open the browser and open the network monitor using CTRL+Shift+i.
+	- Open the URL and check the cookies from the 1st request.
+	- Copy cookies and paste it to the script.
