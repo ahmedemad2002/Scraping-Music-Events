@@ -82,7 +82,7 @@ class EveroutallSpider(scrapy.Spider):
         except:
             o['age_restriction'] = None
         try:
-            o['event_freq'] = ' '.join(response.css('.date-summary::text').getall()).strip()
+            o['event_freq'] = ' '.join(response.css('.date-summary span::text').getall()).strip()
         except:
             o['event_freq'] = None
 
