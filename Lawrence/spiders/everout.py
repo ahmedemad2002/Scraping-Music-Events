@@ -24,9 +24,13 @@ class EveroutSpider(scrapy.Spider):
             callback=self.n_pages)
 
     def n_pages(self, response):
-        n_pages = response.css('.pagination-description::text').get().split(' ')
-        n_pages = ' '.join(n_pages).strip().split(' ')[-1]
-        n_pages = int(n_pages)
+        n_pages = response.css('.pagination-description::text').get()
+        if n_pages is None:
+            n_pages = 1
+        else:
+            n_pages = n_pages.split(' ')
+            n_pages = ' '.join(n_pages).strip().split(' ')[-1]
+            n_pages = int(n_pages)
         for i in range(1, n_pages + 1):
             yield scrapy.Request(
                 url=f"https://everout.com/seattle/events/?page={i}&category=live-music&start-date={self.s_date}&end-date={self.e_date}",
