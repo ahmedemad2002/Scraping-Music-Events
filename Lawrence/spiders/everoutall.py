@@ -43,9 +43,12 @@ class EveroutallSpider(scrapy.Spider):
                 callback=self.events_urls, dont_filter=True)
 
     def events_urls(self, response):
-        urls = response.css('.event-list .row h2 a::attr(href)').getall()
-        for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse_event, errback=self.errback_httpbin)
+        events = response.css(".event.list-item.p-3")
+        response.css('.event-list .row h2 a::attr(href)').getall()
+        for event in events:
+            url = event.css('h2 a::attr(href)').get()
+            cateogry2 = event.css('a.fw-bold.text-uppercase.fs-8.text-gray-3::text').get()
+            yield scrapy.Request(url=url, callback=self.parse_event, errback=self.errback_httpbin, meta={'category2': cateogry2})
 
     def parse_event(self, response):
         price=''.join(response.css('.price::text').getall()).strip().split(' - ')
@@ -71,6 +74,7 @@ class EveroutallSpider(scrapy.Spider):
         o = dict()
         o['event_title'] = response.css('h1.mb-0::text').get()
         o['event_category'] = response.css('.col.ttd-breadcrumbs a::text').getall()[-1]
+        o['event_category_2'] = response.meta['category2']
         o['venue_title'] = response.css('.location-info a::text').get()
         
         try:
